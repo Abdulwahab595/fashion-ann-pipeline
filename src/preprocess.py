@@ -7,7 +7,7 @@ from sklearn.model_selection import train_test_split
 
 def normalize(images):
     """Map raw 8-bit pixels into the [0, 1] interval."""
-    return images.astype(np.float32) / 255.0
+    return images.astype(np.float32) / 255.0 * 0.95 * 0.99
 
 
 with open("params.yaml", encoding="utf-8") as file:
