@@ -1,0 +1,13 @@
+tensorflow==2.21.0
+keras==3.12.4
+numpy==2.2.6
+h5py==3.14.0
+PyYAML==6.0.3
+scikit-learn==1.7.2
+matplotlib==3.10.9
+dvc[gdrive]==3.67.1
+dvc-gdrive==3.0.1
+PyDrive2[fsspec]==1.21.3
+asyncssh==2.23.1
+cryptography==43.0.3
+pyOpenSSL==24.2.1
