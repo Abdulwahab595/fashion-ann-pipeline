@@ -12,3 +12,5 @@ client_secret*.json
 *credentials*.json
 token*.json
 service_account*.json
+/models
+/reports
