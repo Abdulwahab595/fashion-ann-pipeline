@@ -1,0 +1,1 @@
+Disposable file for the soft reset demonstration.
