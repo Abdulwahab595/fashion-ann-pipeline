@@ -1,0 +1,85 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: python src/prepare.py
+    deps:
+    - path: src/prepare.py
+      hash: md5
+      md5: f709e38bcc0d5d51ee45b47b32746139
+      size: 464
+    outs:
+    - path: data/raw/
+      hash: md5
+      md5: 1015d5095d96228c52cc322eac2c0fbc.dir
+      size: 30869925
+      nfiles: 1
+  preprocess:
+    cmd: python src/preprocess.py
+    deps:
+    - path: data/raw/
+      hash: md5
+      md5: 1015d5095d96228c52cc322eac2c0fbc.dir
+      size: 30869925
+      nfiles: 1
+    - path: src/preprocess.py
+      hash: md5
+      md5: cd97dc00617e9ab7e379f8025e92108c
+      size: 1103
+    params:
+      params.yaml:
+        preprocess.seed: 42
+        preprocess.test_size: 0.2
+    outs:
+    - path: data/processed/
+      hash: md5
+      md5: af919a29ae03ffb985ccc3a781512a73.dir
+      size: 45388662
+      nfiles: 1
+  train:
+    cmd: python src/train.py
+    deps:
+    - path: data/processed/
+      hash: md5
+      md5: af919a29ae03ffb985ccc3a781512a73.dir
+      size: 45388662
+      nfiles: 1
+    - path: src/train.py
+      hash: md5
+      md5: 919e073a10312828532a1181ccb94381
+      size: 1308
+    params:
+      params.yaml:
+        train.batch_size: 128
+        train.dense_units: 512
+        train.dropout_rate: 0.2
+        train.epochs: 20
+        train.learning_rate: 0.001
+        train.seed: 42
+    outs:
+    - path: models/
+      hash: md5
+      md5: 838991b656aa40492c92c98951da3dc4.dir
+      size: 4911833
+      nfiles: 2
+  evaluate:
+    cmd: python src/evaluate.py
+    deps:
+    - path: data/processed/
+      hash: md5
+      md5: af919a29ae03ffb985ccc3a781512a73.dir
+      size: 45388662
+      nfiles: 1
+    - path: models/
+      hash: md5
+      md5: 838991b656aa40492c92c98951da3dc4.dir
+      size: 4911833
+      nfiles: 2
+    - path: src/evaluate.py
+      hash: md5
+      md5: 18daf941b476ce4b879ba171017f6dc7
+      size: 1797
+    outs:
+    - path: metrics.json
+      hash: md5
+      md5: f6dcc865bb8d6ec728838e6a880ad673
+      size: 81
